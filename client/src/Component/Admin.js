@@ -1,18 +1,15 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from "../JS/actions";
-import Loader from "./layout/Loader";
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {getUsers} from '../JS/actions';
+import Loader from './layout/Loader';
 
 // import { Redirect } from 'react-router-dom'
-import User from "./User";
+import User from './User';
 // reactstrap components
-import { Card, CardHeader, Table, Row } from "reactstrap";
-const Admin = ({ match }) => {
-  // const isAuth = useSelector(state => state.userReducer.isAuth)
-  const users = useSelector((state) => state.userReducer.users);
-  const loading = useSelector((state) => state.userReducer.loading);
-  // const [name, setName] = useState("");
-  // const [email, setEmail] = useState("");
+import {Card, CardHeader, Table, Row} from 'reactstrap';
+const Admin = ({match}) => {
+  const users = useSelector(state => state.userReducer.users);
+  const loading = useSelector(state => state.userReducer.loading);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -40,7 +37,7 @@ const Admin = ({ match }) => {
               </tr>
             </thead>
 
-            {users && users.map((user) => <User key={User._id} user={user} />)}
+            {users && users.map(user => <User key={User._id} user={user} />)}
           </Table>
         </Card>
       </div>

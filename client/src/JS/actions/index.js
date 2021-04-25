@@ -47,6 +47,7 @@ import {
   ADD_IMAGE_TO_EXPERIENCE2,
   ADD_IMAGE_TO_EXPERIENCE3,
   ADD_IMAGE_TO_EXPERIENCE4,
+  CREATE_EXPERIENCE,
 } from '../constants/experienceConstants';
 
 const addUser = newUser => async dispatch => {
@@ -193,26 +194,22 @@ export const addPreferences = (userId, preferenceId) => async dispatch => {
     });
   }
 };
-export const getUserDetails = (id) => async (dispatch) => {
-  dispatch({ type: FETCH_USER_DETAILS });
+export const getUserDetails = id => async dispatch => {
+  dispatch({type: FETCH_USER_DETAILS});
   try {
-    const { data } = await axios.get(`/user/user/${id}`);
+    const {data} = await axios.get(`/user/user/${id}`);
     dispatch({
       type: FETCH_USER_DETAILS_SUCCESS,
       payload: data.user,
     });
   } catch (error) {
-    console.log(
-      "🚀 ~ file: experienceActions.js ~ line 38 ~ getExperienceDetails ~ error",
-      error
-    );
+    console.log('🚀 ~ file: experienceActions.js ~ line 38 ~ getExperienceDetails ~ error', error);
     dispatch({
       type: FETCH_USER_DETAILS_FAIL,
       payload: error.response.data.message,
     });
   }
 };
-
 
 export const addExperience = newExperience => async dispatch => {
   dispatch({
@@ -294,7 +291,7 @@ export const updateExperience = (id, updatedExperience) => async dispatch => {
     );
     dispatch({
       type: UPDATE_EXPERIENCE_SUCCESS,
-      payload: data,
+      payload: data.experience,
     });
   } catch (error) {
     dispatch({
@@ -315,19 +312,22 @@ export const addImageToProfile = image => ({
 });
 export const addImageToExperience = image => ({
   type: ADD_IMAGE_TO_EXPERIENCE,
-  payload:image,
+  payload: image,
 });
 export const addImageToExperience2 = image2 => ({
   type: ADD_IMAGE_TO_EXPERIENCE2,
-  payload:image2,
+  payload: image2,
 });
-export const addImageToExperience3 = image3=> ({
+export const addImageToExperience3 = image3 => ({
   type: ADD_IMAGE_TO_EXPERIENCE3,
-  payload:image3,
+  payload: image3,
 });
-export const addImageToExperience4 = image4=> ({
+export const addImageToExperience4 = image4 => ({
   type: ADD_IMAGE_TO_EXPERIENCE4,
-  payload:image4,
+  payload: image4,
 });
 
-
+export const createNewExperience = newExperience => ({
+  type: CREATE_EXPERIENCE,
+  payload: newExperience,
+});

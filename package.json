@@ -4,6 +4,7 @@
   "description": "mern app using passport auth",
   "main": "server.js",
   "scripts": {
+    "install": "cd backend && yarn && cd .. && cd client && yarn ",
     "server": "cd backend && npm run dev",
     "client": "cd client && npm start",
     "start": "concurrently \"yarn  client\" \"yarn  server\" ",
@@ -13,7 +14,10 @@
   "license": "ISC",
   "dependencies": {
     "concurrently": "^6.0.0",
-    "nodemon": "^2.0.7"
+    "date-fns": "^2.21.1",
+    "emailjs-com": "^2.6.4",
+    "nodemon": "^2.0.7",
+    "react-nice-dates": "^3.1.0"
   },
   "devDependencies": {
     "eslint": "^7.24.0",

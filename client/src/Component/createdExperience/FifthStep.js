@@ -90,10 +90,7 @@ const FifthStep = ({
                           program: {generalDesc: program.generalDesc},
                           excludedEq: {...excludedEq},
                           includedEq: {...includedEq},
-                          isValidated: false,
-                          isBeingValidated: false,
-                          isPublished: false,
-                          isCreated: true,
+                          status: 'created',
                         })
                       );
                     }}
@@ -183,7 +180,7 @@ const FifthStep = ({
                             }
                             onChange={e =>
                               setProgram({
-                                generalDesc: e.target.value
+                                generalDesc: e.target.value,
                               })
                             }
                             placeholder="Rédiger ici.."
@@ -480,10 +477,7 @@ const FifthStep = ({
                               program: {generalDesc: program.generalDesc},
                               excludedEq: {...excludedEq},
                               includedEq: {...includedEq},
-                              isValidated: false,
-                              isBeingValidated: false,
-                              isPublished: false,
-                              isCreated: true,
+                              status: 'created',
                             })
                           );
                         }}

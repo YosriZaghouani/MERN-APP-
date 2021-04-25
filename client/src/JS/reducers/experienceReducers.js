@@ -13,24 +13,18 @@ import {
   UPDATE_EXPERIENCE_SUCCESS,
   UPDATE_EXPERIENCE,
   ADD_IMAGE_TO_EXPERIENCE,
-ADD_IMAGE_TO_EXPERIENCE2,
-ADD_IMAGE_TO_EXPERIENCE3,
-ADD_IMAGE_TO_EXPERIENCE4
-
-
-} from "../constants/experienceConstants";
+  ADD_IMAGE_TO_EXPERIENCE2,
+  ADD_IMAGE_TO_EXPERIENCE3,
+  ADD_IMAGE_TO_EXPERIENCE4,
+} from '../constants/experienceConstants';
 
 const initialState = {
   experiences: [],
   experienceDetails: {},
   isLoading: false,
 };
-export const experiencesReducers = (
-  state = initialState,
-  { type, payload }
-) => {
+export const experiencesReducers = (state = initialState, {type, payload}) => {
   switch (type) {
-       
     case FETCH_ALL_EXPERIENCES:
       return {
         isLoading: true,
@@ -103,7 +97,7 @@ export const experiencesReducers = (
         isLoading: false,
         errors: payload,
       };
- case ADD_IMAGE_TO_EXPERIENCE:
+    case ADD_IMAGE_TO_EXPERIENCE:
       return {
         ...state,
         experience: {
@@ -111,7 +105,7 @@ export const experiencesReducers = (
           photo: payload,
         },
       };
-       case ADD_IMAGE_TO_EXPERIENCE2:
+    case ADD_IMAGE_TO_EXPERIENCE2:
       return {
         ...state,
         experience: {
@@ -119,7 +113,7 @@ export const experiencesReducers = (
           photo2: payload,
         },
       };
-        case ADD_IMAGE_TO_EXPERIENCE3:
+    case ADD_IMAGE_TO_EXPERIENCE3:
       return {
         ...state,
         experience: {
@@ -127,7 +121,7 @@ export const experiencesReducers = (
           photo3: payload,
         },
       };
-         case ADD_IMAGE_TO_EXPERIENCE4:
+    case ADD_IMAGE_TO_EXPERIENCE4:
       return {
         ...state,
         experience: {

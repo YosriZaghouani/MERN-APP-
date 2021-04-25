@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const {ObjectId} = mongoose.Schema.Types;
 const userSchema = mongoose.Schema({
   name: {
@@ -21,7 +22,7 @@ const userSchema = mongoose.Schema({
   birthday: {
     type: Date,
   },
-  adress: {
+  address: {
     type: String,
   },
   city: {
@@ -42,6 +43,8 @@ const userSchema = mongoose.Schema({
       ref: 'preferences',
     },
   ],
+  verif: {type: Boolean, default: false},
+  falseIdentity: {type: Boolean, default: true},
   myExperiences: [
     {
       type: ObjectId,

@@ -2,7 +2,12 @@ import React, {useEffect, useLayoutEffect, useState} from 'react';
 import '../../App.css';
 import Loader from '../layout/Loader';
 import {useDispatch, useSelector} from 'react-redux';
-import {getExperienceDetails, updateExperience, getExperiences, getProfile} from '../../JS/actions/index';
+import {
+  getExperienceDetails,
+  updateExperience,
+  getExperiences,
+  getProfile,
+} from '../../JS/actions/index';
 import {
   Button,
   Card,
@@ -17,7 +22,6 @@ import {
   ModalFooter,
 } from 'reactstrap';
 import {Link, Redirect} from 'react-router-dom';
-import Carrousel from '../layout/Carrousel';
 import AuthNavbar from '../layout/AuthNavbar';
 
 const ExperienceDetails = ({
@@ -29,23 +33,18 @@ const ExperienceDetails = ({
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
   useEffect(() => {
-    console.log(`object`);
     dispatch(getExperienceDetails(id));
   }, [dispatch, id]);
-  useEffect(()=>{
-    dispatch(getProfile())
-  }, [dispatch]);
+
   const isLoading = useSelector(state => state.experiencesReducers.isLoading);
   const experience = useSelector(state => state.experiencesReducers.experience);
-  const user = useSelector(state => state.userReducer.user);
-  const loading = useSelector(state => state.userReducer.loading);
 
   console.log(
     '🚀 ~ file: ExperienceDetails.js ~ line 38 ~ ExperienceDetails ~ experience.langue',
     experience
   );
   return localStorage.getItem('token') ? (
-    isLoading && loading? (
+    isLoading ? (
       <Loader />
     ) : experience ? (
       <>
@@ -66,8 +65,7 @@ const ExperienceDetails = ({
                 dispatch(
                   updateExperience(experience._id, {
                     ...experience,
-                    isBeingValidated: true,
-                    isCreated: false,
+                    status: 'beingValidated',
                   })
                 );
                 dispatch(getExperiences());
@@ -87,7 +85,7 @@ const ExperienceDetails = ({
           <Col lg="7" md="8" className="center mt-2">
             <Card className="bg-white shadow border-">
               <CardHeader className="bg-white">
-                {experience.isBeingValidated === true ? (
+                {experience.status === 'beingValidated' ? (
                   <Link
                     style={{float: 'right'}}
                     className="btn btn-sm btn-info"
@@ -123,16 +121,13 @@ const ExperienceDetails = ({
                   <Row>
                     <Col lg="10" md="8">
                       <h3 style={{paddingTop: '2%'}}>
-                        Expérience {experience.type.title} organisée par  {user.name}
+                        Expérience {experience.type.title} organisée par {experience.user.name}
                       </h3>
                     </Col>
                     <Col>
                       <Media className="align-items-center">
                         <span className="avatar avatar-sm rounded-circle">
-                          <img
-                            alt="..."
-                            src={user.photo}
-                          />
+                          <img alt="..." src={experience.user.photo} />
                         </span>
                       </Media>
                     </Col>
@@ -143,14 +138,12 @@ const ExperienceDetails = ({
                     <Row className="icon-examples">
                       <Col lg="6" md="6">
                         <p>
-                          {' '}
                           <i className="far fa-clock" style={{paddingRight: '3%'}} />
                           {experience.startHour} - {experience.endHour}
                         </p>
                       </Col>
                       <Col lg="6" md="6">
                         <p>
-                          {' '}
                           <i className="fas fa-users" style={{paddingRight: '3%'}} /> Jusqu'à{' '}
                           {experience.limitParticipants} personnes
                         </p>
@@ -169,7 +162,6 @@ const ExperienceDetails = ({
                       </Col>
                       <Col lg="6" md="6">
                         <p>
-                          {' '}
                           <i className="fas fa-street-view" style={{paddingRight: '4%'}} />
                           {experience.target[0]} {'  '}
                           {experience.target[1] ? <span> et {experience.target[1]}</span> : ''}
@@ -177,7 +169,6 @@ const ExperienceDetails = ({
                       </Col>
                       <Col lg="6" md="6">
                         <p>
-                          {' '}
                           <i className="fas fa-bolt" style={{paddingRight: '3%'}} />
                           niveau {experience.difficulty}{' '}
                         </p>
@@ -217,16 +208,14 @@ const ExperienceDetails = ({
                             <h4>Les équipements inclus</h4>
                             {experience.includedEq.drink ? (
                               <p>
-                                {'   '} <i className="fas fa-wine-bottle" />{' '}
-                                {experience.includedEq.drink}
+                                <i className="fas fa-wine-bottle" /> {experience.includedEq.drink}
                               </p>
                             ) : (
                               <></>
                             )}
                             {experience.includedEq.food ? (
                               <p>
-                                {'   '} <i className="fas fa-utensils" />{' '}
-                                {experience.includedEq.food}
+                                <i className="fas fa-utensils" /> {experience.includedEq.food}
                               </p>
                             ) : (
                               <></>
