@@ -71,6 +71,8 @@ exports.updateUser = async (req, res) => {
       postalCode,
       myPreferences,
       photo,
+      verif,
+      falseIdentity,
     } = req.body;
 
     const updatedUser = await User.findByIdAndUpdate(req.params.id, {
@@ -84,6 +86,8 @@ exports.updateUser = async (req, res) => {
       postalCode,
       myPreferences,
       photo,
+      verif,
+      falseIdentity,
     });
 
     return res.status(201).json({
@@ -146,16 +150,14 @@ exports.addPreferences = async (req, res) => {
     res.status(500).json({errors: error});
   }
 };
-//Add Preferences to a User (Themes)
+// Add Preferences to a User (Themes)
 exports.addMyPreferences = async (req, res) => {
   const userId = req.params.id;
   const {preferenceId, preferenceName} = req.body;
-  console.log('🚀  preferenceId', preferenceId);
 
   try {
     const searchedUser = await User.findOne({_id: userId});
     console.log(searchedUser);
-    // searchedUser.myPreferences = [];
     searchedUser.myPreferences.push(preferenceId);
     const user = await User.findByIdAndUpdate(userId, searchedUser, {
       new: true,
@@ -168,12 +170,53 @@ exports.addMyPreferences = async (req, res) => {
     res.status(500).json({errors: error.message});
   }
 };
-//getUserById
+// getUserById
 exports.getSingleUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
-    res.json({ status: "success", user: user });
+    res.json({status: 'success', user});
   } catch (err) {
-    return res.status(500).json({ msg: err.message });
+    return res.status(500).json({msg: err.message});
   }
+};
+
+exports.Paymentvalidation = (req, res) => {
+  const history = [];
+  const transactionData = {};
+
+  // 1.Put brief Payment Information inside User Collection
+  req.body.cartDetail.forEach(item => {
+    history.push({
+      dateOfPurchase: Date.now(),
+      name: item.title,
+      id: item._id,
+      price: item.price,
+      quantity: item.quantity,
+      paymentId: req.body.paymentData.paymentID,
+    });
+  });
+
+  // 2.Put Payment Information that come from Paypal into Payment Collection
+  transactionData.user = {
+    id: req.user._id,
+    name: req.user.name,
+    email: req.user.email,
+  };
+
+  transactionData.data = req.body.paymentData;
+  transactionData.product = history;
+
+  User.findOneAndUpdate(
+    {_id: req.user._id},
+    {$push: {history}, $set: {cart: []}},
+    {new: true},
+    (err, user) => {
+      if (err) return res.json({success: false, err});
+
+      const payment = new Payment(transactionData);
+      payment.save((err, doc) => {
+        if (err) return res.json({success: false, err});
+      });
+    }
+  );
 };

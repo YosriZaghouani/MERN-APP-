@@ -9,7 +9,8 @@ const {
   addPreferences,
   addMyPreferences,
   getSingleUser,
-} = require("../controllers/user.controller");
+  Paymentvalidation,
+} = require('../controllers/user.controller');
 
 const {registerRules, validator} = require('../middleware/validator');
 const isAuth = require('../middleware/passport-setup');
@@ -26,11 +27,11 @@ Router.get('/current', isAuth(), (req, res) => {
 
 Router.put('/profile/:id', updateUser);
 
-Router.get("/users", allUsers);
-Router.get("/preferences", seePreferences);
-Router.post("/preferences/add", addPreferences);
-Router.put("/mypreferences/:id", addMyPreferences);
-Router.get("/user/:id", getSingleUser);
-
+Router.get('/users', allUsers);
+Router.get('/preferences', seePreferences);
+Router.post('/preferences/add', addPreferences);
+Router.put('/mypreferences/:id', addMyPreferences);
+Router.get('/user/:id', getSingleUser);
+Router.post('/successBuy', Paymentvalidation);
 
 module.exports = Router;

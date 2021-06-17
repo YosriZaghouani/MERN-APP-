@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from 'react';
 import {
   Card,
   CardBody,
@@ -12,84 +12,74 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-} from "reactstrap";
-import Advice from "../layout/Advice";
+} from 'reactstrap';
+import Advice from '../layout/Advice';
 
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from 'react-redux';
 import {
   addExperience,
   deleteExperience,
+  getExperienceDetails,
   getExperiences,
   getProfile,
   updateExperience,
-} from "../../JS/actions/index";
-import { Link } from "react-router-dom";
-import Loader from "../layout/Loader";
+} from '../../JS/actions/index';
+import {Link} from 'react-router-dom';
+import Loader from '../layout/Loader';
 
 const FirstStep = () => {
-  const [type, setType] = useState("en ligne");
+  const [type, setType] = useState('en ligne');
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
   const dispatch = useDispatch();
-  const experience = useSelector(
-    (state) => state.experiencesReducers.experience
-  );
-  const isLoading = useSelector((state) => state.experiencesReducers.isLoading);
-  const user = useSelector((state) => state.userReducer.user);
-  const loading = useSelector((state) => state.userReducer.loading);
+  const experience = useSelector(state => state.experiencesReducers.experience);
+  const isLoading = useSelector(state => state.experiencesReducers.isLoading);
+  const user = useSelector(state => state.userReducer.user);
+  const loading = useSelector(state => state.userReducer.loading);
 
   console.log(experience);
   useEffect(() => {
     dispatch(getProfile());
-    dispatch(addExperience({ type: { title: type } }));
-  }, [dispatch, type]);
-  
-    useEffect(() => {
-    dispatch(getProfile());
+    if (user) dispatch(addExperience({type: {title: type}, userID: user._id, sessions: []}));
   }, [dispatch]);
-  return localStorage.getItem("token") && isLoading ? (
+
+  return localStorage.getItem('token') && isLoading ? (
     <Loader />
   ) : experience ? (
     <>
-      <div style={{ backgroundColor: "#f8f9fe" }}>
+      <div style={{backgroundColor: '#f8f9fe'}}>
         <Advice />
 
         <div className="main-content">
           <Container fluid>
             <div>
               <div className="text-center">1 de 6</div>
-              <Progress style={{ height: "21px" }} value="15">
+              <Progress style={{height: '21px'}} value="15">
                 20%
               </Progress>
             </div>
-            <div
-              className="header-body border-0"
-              style={{ padding: "2%", margin: "1%" }}
-            >
+            <div className="header-body border-0" style={{padding: '2%', margin: '1%'}}>
               <Button
                 onClick={toggle}
                 style={{
-                  padding: "0.5% 0.5% 0%",
-                  float: "right",
+                  padding: '0.5% 0.5% 0%',
+                  float: 'right',
                 }}
               >
                 <i className="ni ni-fat-remove" />
               </Button>
               <Modal isOpen={modal} toggle={toggle}>
-                <ModalHeader toggle={toggle}>
-                  Abandonner la création ?
-                </ModalHeader>
+                <ModalHeader toggle={toggle}>Abandonner la création ?</ModalHeader>
                 <ModalBody>
-                  Si vous abandonner la création, vous perderz toutes les
-                  informations saisies.
+                  Si vous abandonner la création, vous perderz toutes les informations saisies.
                 </ModalBody>
                 <ModalFooter>
                   <Button color="primary" onClick={toggle}>
                     Continuer
-                  </Button>{" "}
+                  </Button>{' '}
                   <Link
                     className="btn"
-                    to={"/experiences"}
+                    to={'/experiences'}
                     color="secondary"
                     onClick={() => {
                       dispatch(deleteExperience(experience._id));
@@ -102,8 +92,8 @@ const FirstStep = () => {
                 </ModalFooter>
               </Modal>
               <Col lg="5" md="10">
-                <h2 style={{ color: "#32325d" }}>
-                  <i className="fas fa-users-cog" style={{ padding: "2%" }} />
+                <h2 style={{color: '#32325d'}}>
+                  <i className="fas fa-users-cog" style={{padding: '2%'}} />
                   Le type de l'expérience
                 </h2>
               </Col>
@@ -124,24 +114,21 @@ const FirstStep = () => {
                         </Col>
                       </Row>
                       <div className="mt-3 mb-0 text-muted text-sm">
-                        {type === "en ligne" ? (
+                        {type === 'en ligne' ? (
                           <button
                             className="btn-icon-clipboard"
                             style={{
-                              backgroundColor: "white",
+                              backgroundColor: 'white',
                               boxShadow:
-                                "rgb(0 0 0 / 10%) 0px 0px 0px 1px, rgb(0 0 0 / 10%) 0px 4px 16px",
+                                'rgb(0 0 0 / 10%) 0px 0px 0px 1px, rgb(0 0 0 / 10%) 0px 4px 16px',
                             }}
                             id="tooltip982655500"
                             type="button"
-                            onClick={() => setType("en ligne")}
+                            onClick={() => setType('en ligne')}
                           >
                             <div>
                               <i className="ni ni-active-40" />
-                              <span
-                                className="font-weight-bold"
-                                style={{ color: "#32325d" }}
-                              >
+                              <span className="font-weight-bold" style={{color: '#32325d'}}>
                                 En ligne
                               </span>
                             </div>
@@ -151,16 +138,13 @@ const FirstStep = () => {
                             className="btn-icon-clipboard"
                             id="tooltip982655500"
                             type="button"
-                            onClick={(e) => {
-                              setType("en ligne");
+                            onClick={e => {
+                              setType('en ligne');
                             }}
                           >
                             <div>
                               <i className="ni ni-active-40" />
-                              <span
-                                className="font-weight-bold"
-                                style={{ color: "#32325d" }}
-                              >
+                              <span className="font-weight-bold" style={{color: '#32325d'}}>
                                 En ligne
                               </span>
                             </div>
@@ -173,7 +157,7 @@ const FirstStep = () => {
                                 <CardTitle className="mb-0 text-sm">
                                   <span
                                     className="mr-2 font-weight-bold"
-                                    style={{ color: "rgb(50, 50, 93)" }}
+                                    style={{color: 'rgb(50, 50, 93)'}}
                                   >
                                     De quoi as-tu besoin ?
                                   </span>
@@ -218,24 +202,21 @@ const FirstStep = () => {
                         </Col>
                       </Row>
                       <div className="mt-3 mb-0 text-muted text-sm">
-                        {type === "en personne" ? (
+                        {type === 'en personne' ? (
                           <button
                             className="btn-icon-clipboard"
                             id="tooltip982655500"
                             type="button"
-                            onClick={() => setType("en personne")}
+                            onClick={() => setType('en personne')}
                             style={{
-                              backgroundColor: "white",
+                              backgroundColor: 'white',
                               boxShadow:
-                                "rgb(0 0 0 / 10%) 0px 0px 0px 1px, rgb(0 0 0 / 10%) 0px 4px 16px",
+                                'rgb(0 0 0 / 10%) 0px 0px 0px 1px, rgb(0 0 0 / 10%) 0px 4px 16px',
                             }}
                           >
                             <div>
                               <i className="ni ni-active-40" />
-                              <span
-                                className="font-weight-bold"
-                                style={{ color: "#32325d" }}
-                              >
+                              <span className="font-weight-bold" style={{color: '#32325d'}}>
                                 En personne
                               </span>
                             </div>
@@ -245,14 +226,11 @@ const FirstStep = () => {
                             className="btn-icon-clipboard"
                             id="tooltip982655500"
                             type="button"
-                            onClick={() => setType("en personne")}
+                            onClick={() => setType('en personne')}
                           >
                             <div>
                               <i className="ni ni-active-40" />
-                              <span
-                                className="font-weight-bold"
-                                style={{ color: "#32325d" }}
-                              >
+                              <span className="font-weight-bold" style={{color: '#32325d'}}>
                                 En personne
                               </span>
                             </div>
@@ -266,7 +244,7 @@ const FirstStep = () => {
                                 <CardTitle className="mb-0 text-sm">
                                   <span
                                     className="mr-2 font-weight-bold"
-                                    style={{ color: "rgb(50, 50, 93)" }}
+                                    style={{color: 'rgb(50, 50, 93)'}}
                                   >
                                     De quoi as-tu besoin ?
                                   </span>
@@ -304,11 +282,13 @@ const FirstStep = () => {
                     onClick={() => {
                       console.log(experience);
                       if (loading === false && user) {
+                        dispatch(getExperienceDetails(experience.experience._id));
                         dispatch(
                           updateExperience(experience.experience._id, {
                             ...experience,
-                            type: { title: type },
-                            userID: user._id,
+                            type: {title: type},
+                            user: {...user},
+                            sessions: [],
                           })
                         );
                       }

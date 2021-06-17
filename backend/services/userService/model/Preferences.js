@@ -1,5 +1,6 @@
-const mongoose = require("mongoose");
-const { ObjectId } = mongoose.Schema.Types;
+const mongoose = require('mongoose');
+
+const {ObjectId} = mongoose.Schema.Types;
 
 const preferencesSchema = mongoose.Schema({
   themes: [
@@ -20,12 +21,6 @@ const preferencesSchema = mongoose.Schema({
       icon: String,
     },
   ],
-  usersID: [
-    {
-      type: ObjectId,
-      ref: "user",
-    },
-  ],
 });
 
-module.exports = Preferences = mongoose.model("preferences", preferencesSchema);
+module.exports = Preferences = mongoose.model('preferences', preferencesSchema);

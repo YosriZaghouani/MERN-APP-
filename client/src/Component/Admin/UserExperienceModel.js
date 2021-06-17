@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from 'react';
 import {
   Card,
   CardBody,
@@ -11,11 +11,11 @@ import {
   ModalBody,
   ModalFooter,
   Button,
-} from "reactstrap";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { deleteExperience, getExperiences } from "../../JS/actions/index";
-const UserExperienceModel = ({ experience }) => {
+} from 'reactstrap';
+import {Link} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import {deleteExperience, getExperiences} from '../../JS/actions/index';
+const UserExperienceModel = ({experience}) => {
   const dispatch = useDispatch();
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
@@ -43,19 +43,16 @@ const UserExperienceModel = ({ experience }) => {
         </ModalFooter>
       </Modal>
       {/* endModal */}
-      <Col lg="6" xl="4" style={{ marginBottom: "1%" }}>
+      <Col lg="6" xl="4" style={{marginBottom: '1%'}}>
         <Card className="card-stats mb-4 mb-xl-0">
           <CardBody>
             <Row>
               <div className="col">
-                {experience.isCreated ? (
+                {experience.status === 'created' ? (
                   <>
                     <small>
-                      {" "}
-                      <i
-                        className="fas fa-circle"
-                        style={{ paddingRight: "2%" }}
-                      />
+                      {' '}
+                      <i className="fas fa-circle" style={{paddingRight: '2%'}} />
                       Créée
                     </small>
                     ​<CardText>{experience.title}</CardText>
@@ -65,11 +62,10 @@ const UserExperienceModel = ({ experience }) => {
                           to={`/first/${experience._id}`}
                           className="btn btn-sm btn-outline-secondary"
                           style={{
-                            color: "#525f7f",
-                            backgroundColor: "white",
-                            boxShadow:
-                              "0 4px 6px white, 0 0px 0px rgb(0 0 0 / 0%)",
-                            border: "0px white",
+                            color: '#525f7f',
+                            backgroundColor: 'white',
+                            boxShadow: '0 4px 6px white, 0 0px 0px rgb(0 0 0 / 0%)',
+                            border: '0px white',
                           }}
                         >
                           <small>Modifier</small>
@@ -78,11 +74,10 @@ const UserExperienceModel = ({ experience }) => {
                       <Col xl="4">
                         <Link
                           style={{
-                            color: "#525f7f",
-                            backgroundColor: "white",
-                            boxShadow:
-                              "0 4px 6px white, 0 0px 0px rgb(0 0 0 / 0%)",
-                            border: "0px white",
+                            color: '#525f7f',
+                            backgroundColor: 'white',
+                            boxShadow: '0 4px 6px white, 0 0px 0px rgb(0 0 0 / 0%)',
+                            border: '0px white',
                           }}
                           to={`/experience/${experience._id}`}
                           className="btn btn-sm btn-outline-secondary"
@@ -98,11 +93,10 @@ const UserExperienceModel = ({ experience }) => {
                           to={`/experiences`}
                           className="btn btn-sm btn-outline-secondary"
                           style={{
-                            color: "#525f7f",
-                            backgroundColor: "white",
-                            boxShadow:
-                              "0 4px 6px white, 0 0px 0px rgb(0 0 0 / 0%)",
-                            border: "0px white",
+                            color: '#525f7f',
+                            backgroundColor: 'white',
+                            boxShadow: '0 4px 6px white, 0 0px 0px rgb(0 0 0 / 0%)',
+                            border: '0px white',
                           }}
                         >
                           <small>Supprimer</small>
@@ -110,78 +104,72 @@ const UserExperienceModel = ({ experience }) => {
                       </Col>
                     </Row>
                   </>
-                ) : experience.isBeingValidated ? (
+                ) : experience.status === 'beingValidated' ? (
                   <>
                     <small>
-                      {" "}
+                      {' '}
                       <i
                         className="fas fa-circle"
-                        style={{ paddingRight: "2%", color: "#ffd600 " }}
+                        style={{paddingRight: '2%', color: '#ffd600 '}}
                       />
                       En cours de validation
                     </small>
                     <CardText>{experience.title}</CardText>
-                    <hr style={{ margin: "1%" }} />
+                    <hr style={{margin: '1%'}} />
                     <Row>
                       <Link
                         to={`/experience/${experience._id}`}
                         className="btn btn-sm btn-outline-secondary"
                         style={{
-                          color: "#525f7f",
-                          backgroundColor: "white",
-                          boxShadow:
-                            "0 4px 6px white, 0 0px 0px rgb(0 0 0 / 0%)",
-                          border: "0px white",
+                          color: '#525f7f',
+                          backgroundColor: 'white',
+                          boxShadow: '0 4px 6px white, 0 0px 0px rgb(0 0 0 / 0%)',
+                          border: '0px white',
                         }}
                       >
                         <i className="fas fa-mouse-pointer" />
                         <small>
-                          L'expérience est en cours de validation, vous pouvez
-                          seulement la consulter.
+                          L'expérience est en cours de validation, vous pouvez seulement la
+                          consulter.
                         </small>
                       </Link>
                     </Row>
                   </>
-                ) : experience.isValidated ? (
+                ) : experience.status === 'accepted' ? (
                   <>
                     <small>
-                      {" "}
-                      <i
-                        className="fas fa-circle"
-                        style={{ paddingRight: "2%", color: "#2dce89" }}
-                      />
+                      {' '}
+                      <i className="fas fa-circle" style={{paddingRight: '2%', color: '#2dce89'}} />
                       Acceptée
                     </small>
                     <CardText>{experience.title}</CardText>
-                    <CardLink href="#" style={{ color: "#f5365c " }}>
+                    <CardLink href="#" style={{color: '#f5365c '}}>
                       <Link
                         to={`/experience/${experience._id}`}
                         className="btn btn-sm btn-outline-secondary"
                         style={{
-                          backgroundColor: "white",
-                          boxShadow:
-                            "0 4px 6px white, 0 0px 0px rgb(0 0 0 / 0%)",
-                          border: "0px white",
+                          backgroundColor: 'white',
+                          boxShadow: '0 4px 6px white, 0 0px 0px rgb(0 0 0 / 0%)',
+                          border: '0px white',
                         }}
                       >
                         <small>Modifier</small>
                       </Link>
                     </CardLink>
-                    <CardLink href="#" style={{ color: "#f5365c " }}>
+                    <CardLink href="#" style={{color: '#f5365c '}}>
                       <Link
                         to={`/experience/${experience._id}`}
                         className="btn btn-sm btn-outline-secondary"
                         style={{
-                          backgroundColor: "white",
-                          boxShadow:
-                            "0 4px 6px white, 0 0px 0px rgb(0 0 0 / 0%)",
-                          border: "0px white",
+                          backgroundColor: 'white',
+                          boxShadow: '0 4px 6px white, 0 0px 0px rgb(0 0 0 / 0%)',
+                          border: '0px white',
                         }}
                       >
                         <small>Publier</small>
                       </Link>
                     </CardLink>
-                    <CardLink href="#" style={{ color: "#f5365c " }}>
+                    <CardLink href="#" style={{color: '#f5365c '}}>
                       <Link
                         onClick={() => {
                           toggle();
@@ -189,55 +177,79 @@ const UserExperienceModel = ({ experience }) => {
                         to={`/experiences`}
                         className="btn btn-sm btn-outline-secondary"
                         style={{
-                          backgroundColor: "white",
-                          boxShadow:
-                            "0 4px 6px white, 0 0px 0px rgb(0 0 0 / 0%)",
-                          border: "0px white",
+                          backgroundColor: 'white',
+                          boxShadow: '0 4px 6px white, 0 0px 0px rgb(0 0 0 / 0%)',
+                          border: '0px white',
                         }}
                       >
                         <small>Supprimer</small>
                       </Link>
                     </CardLink>
                   </>
-                ) : (
+                ) : experience.status === 'contentValidated' ? (
                   <>
                     <small>
                       <i
-                        className="fas fa-circle"
-                        style={{ paddingRight: "2%", color: "#f5365c" }}
+                        className="fas fa-user-clock"
+                        style={{paddingRight: '2%', color: '#ffd600'}}
                       />
-                      Refusée
+                      En cours de vérification du profile
                     </small>
-                    ​<CardText>{experience.title}</CardText>
-                    <CardLink href="#" style={{ color: "#f5365c " }}>
+                    <CardText>{experience.title}</CardText>
+                    <hr style={{margin: '1%'}} />
+                    <CardLink href="#" style={{color: '#f5365c '}}>
                       <Link
                         to={`/experience/${experience._id}`}
                         className="btn btn-sm btn-outline-secondary"
                         style={{
-                          backgroundColor: "white",
-                          boxShadow:
-                            "0 4px 6px white, 0 0px 0px rgb(0 0 0 / 0%)",
-                          border: "0px white",
+                          color: '#525f7f',
+                          backgroundColor: 'white',
+                          boxShadow: '0 4px 6px white, 0 0px 0px rgb(0 0 0 / 0%)',
+                          border: '0px white',
+                        }}
+                      >
+                        <i className="fas fa-mouse-pointer" />
+                        <small>
+                          L'expérience est en cours de validation, vous pouvez seulement la
+                          consulter.
+                        </small>
+                      </Link>
+                    </CardLink>
+                  </>
+                ) : (
+                  <>
+                    <small>
+                      <i className="fas fa-circle" style={{paddingRight: '2%', color: '#f5365c'}} />
+                      Refusée
+                    </small>
+                    ​<CardText>{experience.title}</CardText>
+                    <CardLink href="#" style={{color: '#f5365c '}}>
+                      <Link
+                        to={`/experience/${experience._id}`}
+                        className="btn btn-sm btn-outline-secondary"
+                        style={{
+                          backgroundColor: 'white',
+                          boxShadow: '0 4px 6px white, 0 0px 0px rgb(0 0 0 / 0%)',
+                          border: '0px white',
                         }}
                       >
                         <small>Modifier</small>
                       </Link>
                     </CardLink>
-                    <CardLink href="#" style={{ color: "#f5365c " }}>
+                    <CardLink href="#" style={{color: '#f5365c '}}>
                       <Link
                         to={`/experience/${experience._id}`}
                         className="btn btn-sm btn-outline-secondary"
                         style={{
-                          backgroundColor: "white",
-                          boxShadow:
-                            "0 4px 6px white, 0 0px 0px rgb(0 0 0 / 0%)",
-                          border: "0px white",
+                          backgroundColor: 'white',
+                          boxShadow: '0 4px 6px white, 0 0px 0px rgb(0 0 0 / 0%)',
+                          border: '0px white',
                         }}
                       >
                         <small>Redemander la validation</small>
                       </Link>
                     </CardLink>
-                    <CardLink href="#" style={{ color: "#f5365c " }}>
+                    <CardLink href="#" style={{color: '#f5365c '}}>
                       <Link
                         onClick={() => {
                           toggle();
@@ -245,10 +257,9 @@ const UserExperienceModel = ({ experience }) => {
                         to={`/experiences`}
                         className="btn btn-sm btn-outline-secondary"
                         style={{
-                          backgroundColor: "white",
-                          boxShadow:
-                            "0 4px 6px white, 0 0px 0px rgb(0 0 0 / 0%)",
-                          border: "0px white",
+                          backgroundColor: 'white',
+                          boxShadow: '0 4px 6px white, 0 0px 0px rgb(0 0 0 / 0%)',
+                          border: '0px white',
                         }}
                       >
                         <small>Supprimer</small>
@@ -258,7 +269,7 @@ const UserExperienceModel = ({ experience }) => {
                 )}
               </div>
               <Col className="col-auto">
-                {experience.type.title === "en ligne" ? (
+                {experience.type.title === 'en ligne' ? (
                   <i className="ni ni-laptop" />
                 ) : (
                   <i className="fas fa-users" />

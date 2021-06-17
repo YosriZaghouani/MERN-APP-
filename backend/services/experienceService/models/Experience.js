@@ -1,66 +1,59 @@
-const mongoose = require("mongoose");
-const { ObjectId } = mongoose.Schema.Types;
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+
+const {ObjectId} = mongoose.Schema.Types;
+const {Schema} = mongoose;
 
 const experienceSchema = new Schema(
   {
-    //type
+    // type
     type: {
-      title: { type: String }, //en ligne ou en personne
-      location: String, //si type de l'expérience est en personne
-      assemblyPoint: String, //si type de l'expérience est en personne
-      zoom: String, //si type de l'expérience est en ligne
+      title: {type: String}, // en ligne ou en personne
+      location: String, // si type de l'expérience est en personne
+      assemblyPoint: String, // si type de l'expérience est en personne
+      zoom: String, // si type de l'expérience est en ligne
     },
-    sessions: {
-      type: [
-        {
-          paymentLimit: Date,
-          reservationlimit: Date,
-          restDate: Date,
-          launchDate: Date,
-          sessionDate: Date,
-          islunched: { Boolean, default: false },
-        },
-      ],
-    },
+    sessions: [
+      {
+        type: Object,
+        ref: 'Session',
+      },
+    ],
 
-    //titre
+    // titre
     title: {
       type: String,
     },
-    //activité
+    // activité
     activity: {
       type: String,
       trim: true,
     },
-    //heure début
+    // heure début
     startHour: {
       type: String,
     },
-    //heure fin
+    // heure fin
     endHour: {
       type: String,
     },
-    //langues
-    language: { type: String },
-    //ville
-    city: { type: String },
-    //Thèmes
-    themes: { type: [String] },
-    //difficulte
+    // langues
+    language: {type: String},
+    // ville
+    city: {type: String},
+    // Thèmes
+    themes: {type: [String]},
+    // difficulte
     difficulty: String,
-    //description du programme
+    // description du programme
     program: {
-      type: {
-        generalDesc: String,
-        activityDesc: String,
-      },
+      generalDesc: String,
+      activityDesc: String,
     },
-    //cibles
-    target: { type: [String] },
-    //phobies
-    phobia: { type: [String] },
-    //equipements inclus
+    // cibles
+    target: {type: [String]},
+    // phobies
+    phobia: {type: [String]},
+    // equipements inclus
     includedEq: {
       type: {
         food: String,
@@ -68,7 +61,7 @@ const experienceSchema = new Schema(
         material: String,
       },
     },
-    //equipements exclus
+    // equipements exclus
     excludedEq: {
       type: {
         food: String,
@@ -76,36 +69,30 @@ const experienceSchema = new Schema(
         material: String,
       },
     },
-    //prix
+    // prix
     price: {
       type: Number,
       trim: true,
     },
-    isPublished: false,
-    isBeingValidated: false,
-    isValidated: false,
-    isCreated: false,
-    limitParticipants: { type: Number },
-
-    userID: {
-      type: ObjectId,
-      ref: "user",
-    },
+    status: String,
+    limitParticipants: {type: Number},
+    userID: ObjectId,
+    user: Object,
     photo: {
-    type: String,
-  },
-   photo2: {
-    type: String,
-  },
-   photo3: {
-    type: String,
-  },
-   photo4: {
-    type: String,
-  },
+      type: String,
+    },
+    photo2: {
+      type: String,
+    },
+    photo3: {
+      type: String,
+    },
+    photo4: {
+      type: String,
+    },
   },
   {
     timestamps: true,
   }
 );
-module.exports = mongoose.model("Experience", experienceSchema);
+module.exports = mongoose.model('Experience', experienceSchema);

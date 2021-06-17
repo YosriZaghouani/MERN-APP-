@@ -1,20 +1,19 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getExperiences, getProfile } from "../../JS/actions/index";
-import Loader from "../layout/Loader";
-import ExperienceModel from "./ExperienceModel";
-import { Container, Col, Row } from "reactstrap";
-import { Link, Redirect } from "react-router-dom";
-import AuthNavbar from "../layout/AuthNavbar";
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {getExperiences, getProfile} from '../../JS/actions/index';
+import Loader from '../layout/Loader';
+import ExperienceModel from './ExperienceModel';
+import {Container, Col, Row} from 'reactstrap';
+import {Link, Redirect} from 'react-router-dom';
+import SideBarTemplate from '../layout/SideBarTemplate';
+import AuthNavbarExperience from '../layout/AuthNavbarExperience';
 const ExperiencesList = () => {
   const dispatch = useDispatch();
-  const experiences = useSelector(
-    (state) => state.experiencesReducers.experiences
-  );
-  const user = useSelector((state) => state.userReducer.user);
-  const isLoading = useSelector((state) => state.experiencesReducers.isLoading);
-  const error = useSelector((state) => state.experiences);
-  const loading = useSelector((state) => state.userReducer.loading);
+  const experiences = useSelector(state => state.experiencesReducers.experiences);
+  const user = useSelector(state => state.userReducer.user);
+  const isLoading = useSelector(state => state.experiencesReducers.isLoading);
+  const error = useSelector(state => state.experiences);
+  const loading = useSelector(state => state.userReducer.loading);
 
   useEffect(() => {
     if (error) {
@@ -24,25 +23,26 @@ const ExperiencesList = () => {
     dispatch(getProfile());
   }, [dispatch, error]);
 
-  return localStorage.getItem("token") ? (
+  return localStorage.getItem('token') ? (
     isLoading && loading ? (
-      <Loader />
+      <>
+        <AuthNavbarExperience />
+        <SideBarTemplate />
+        <Loader />
+      </>
     ) : user && experiences ? (
       <>
-        <AuthNavbar />
-        <Container fluid>
-          <div className="main-content" style={{ margin: "1%" }}>
+        <AuthNavbarExperience />
+        <SideBarTemplate />
+        <div className="main-content mt-4">
+          <Container fluid>
             <Col lg="12" md="10">
               <Row>
                 <Col>
-                  <h1 style={{ color: "#32325d" }}>Vos expériences</h1>
+                  <h1 style={{color: '#32325d'}}>Vos expériences</h1>
                 </Col>
                 <Col>
-                  <Link
-                    className="btn btn-info"
-                    to={`/create`}
-                    style={{ float: "right" }}
-                  >
+                  <Link className="btn btn-info" to={`/create`} style={{float: 'right'}}>
                     Créer une expérience
                   </Link>
                 </Col>
@@ -59,7 +59,7 @@ const ExperiencesList = () => {
                       name="créées"
                     />
                     <label className="custom-control-label" htmlFor="created">
-                      <small>créées</small>{" "}
+                      <small>créées</small>{' '}
                     </label>
                   </div>
                 </Col>
@@ -71,11 +71,8 @@ const ExperiencesList = () => {
                       type="checkbox"
                       name="en cours"
                     />
-                    <label
-                      className="custom-control-label"
-                      htmlFor="BeingValidated"
-                    >
-                      <small>en cours</small>{" "}
+                    <label className="custom-control-label" htmlFor="BeingValidated">
+                      <small>en cours</small>{' '}
                     </label>
                   </div>
                 </Col>
@@ -88,7 +85,7 @@ const ExperiencesList = () => {
                       name="acceptée"
                     />
                     <label className="custom-control-label" htmlFor="accepted">
-                      <small>acceptée</small>{" "}
+                      <small>acceptée</small>{' '}
                     </label>
                   </div>
                 </Col>
@@ -101,33 +98,26 @@ const ExperiencesList = () => {
                       name="refusée"
                     />
                     <label className="custom-control-label" htmlFor="refused">
-                      <small>refusée</small>{" "}
+                      <small>refusée</small>{' '}
                     </label>
                   </div>
                 </Col>
               </Row>
             </Col>
-            <div
-              className="header-body border"
-              style={{ padding: "2%", margin: "1%" }}
-            >
-              <div style={{ backgroundColor: "#f8f9fe" }}>
+            <div className="header-body border" style={{padding: '2%', margin: '1%'}}>
+              <div style={{backgroundColor: '#f8f9fe'}}>
                 {experiences &&
-                  experiences.map((experience) =>
+                  experiences.map(experience =>
                     experience.userID === user._id ? (
-                      <ExperienceModel
-                        key={experience._id}
-                        experience={experience}
-                      />
-                 
+                      <ExperienceModel key={experience._id} experience={experience} />
                     ) : (
                       <p></p>
                     )
                   )}
               </div>
             </div>
-          </div>
-        </Container>
+          </Container>
+        </div>
       </>
     ) : (
       <p></p>

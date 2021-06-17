@@ -43,7 +43,7 @@ const UserDetails = ({
     <Loader />
   ) : (
     <>
-    <AuthNavbar/>
+      <AuthNavbar />
       <Col lg="7" md="8" className="center mt-2">
         <Card className="card-stats mb-4 mb-xl-0">
           <CardBody className="mb-0">

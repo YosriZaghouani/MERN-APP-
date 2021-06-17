@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import AuthNavbar from "./layout/AuthNavbar";
-import Footer from "./layout/Footer";
-import { useDispatch, useSelector } from "react-redux";
-import Loader from "./layout/Loader";
-import { Col, Row, CardTitle } from "reactstrap";
-import { Link, Redirect } from "react-router-dom";
-import { getProfile } from "../JS/actions";
+import React, {useEffect, useState} from 'react';
+import AuthNavbar from './layout/AuthNavbar';
+import Footer from './layout/Footer';
+import {useDispatch, useSelector} from 'react-redux';
+import Loader from './layout/Loader';
+import {Col, Row, CardTitle} from 'reactstrap';
+import {Link, Redirect} from 'react-router-dom';
+import {getProfile} from '../JS/actions';
 const Home = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.userReducer.user);
-  const loading = useSelector((state) => state.userReducer.loading);
+  const user = useSelector(state => state.userReducer.user);
+  const loading = useSelector(state => state.userReducer.loading);
   useEffect(() => {
     dispatch(getProfile());
   }, [dispatch]);
@@ -19,25 +19,23 @@ const Home = () => {
     <div className="main-content">
       <div className="header bg-white py-7 py-lg-6">
         <AuthNavbar />
-        {user && user.role === "admin" ? (
+        {user && user.role === 'admin' ? (
           <Redirect to="/admin" />
         ) : (
           <>
-            {" "}
             <Col lg="12" md="10">
               <Row>
                 <Col lg="5">
                   <img
                     alt="..."
-                    src={require("../Assets/img/brand/creator4.png").default}
-                    style={{ width: "80%" }}
+                    src={require('../Assets/img/brand/creator4.png').default}
+                    style={{width: '80%'}}
                   />
                 </Col>
                 <Col lg="7">
-                  <Link>
+                  <Link to="/explore">
                     <CardTitle tag="h1" className=" mb-0 mt-9">
-                      Vivre des expériences créées par <br /> des tunisiens
-                      passionnées ?
+                      Vivre des expériences créées par <br /> des tunisiens passionnées ?
                     </CardTitle>
                   </Link>
                 </Col>
@@ -57,8 +55,8 @@ const Home = () => {
                 <Col lg="5">
                   <img
                     alt="..."
-                    src={require("../Assets/img/brand/creator3.png").default}
-                    style={{ width: "80%" }}
+                    src={require('../Assets/img/brand/creator3.png').default}
+                    style={{width: '80%'}}
                   />
                 </Col>
               </Row>

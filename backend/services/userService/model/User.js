@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const {ObjectId} = mongoose.Schema.Types;
 const userSchema = mongoose.Schema({
   name: {
@@ -30,6 +31,10 @@ const userSchema = mongoose.Schema({
   postalCode: {
     type: String,
   },
+  history: {
+    type: Array,
+    default: [],
+  },
   aboutMe: {
     type: String,
   },
@@ -38,10 +43,11 @@ const userSchema = mongoose.Schema({
   },
   myPreferences: [
     {
-      type: ObjectId,
-      ref: 'preferences',
+      type: Object,
     },
   ],
+  verif: {type: Boolean, default: false},
+  falseIdentity: {type: Boolean, default: true},
   myExperiences: [
     {
       type: ObjectId,
